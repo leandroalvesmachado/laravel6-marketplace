@@ -21,7 +21,7 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be hidden for arrays.
-     *
+     * Os atributos são ocultados para os resultados (consultas).
      * @var array
      */
     protected $hidden = [
@@ -30,10 +30,15 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be cast to native types.
-     *
+     * Os atributos são convertidos em tipos nativos determinados.
+     * integer, float, boolean, datetime
      * @var array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // 1:1 - Um pra Um (Usuario e Loja)
+    // 1:N - Um pra Muitos (Loja e Produtos)
+    // N:N - Muitos pra Muitos (Produtos e Categorias)
 }
