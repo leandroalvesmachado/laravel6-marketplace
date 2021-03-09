@@ -22,6 +22,9 @@ class UsersTableSeeder extends Seeder
         // );
 
         // agora com factory, cria 40 registros a partir do model User definido no UserFactory
-        factory(\App\User::class, 40)->create();
+        // se baseia pelos campos fillable
+        factory(\App\User::class, 40)->create()->each(function ($user) {
+            $user->store()->save(factory(\App\Store::class)->make());
+        });
     }
 }

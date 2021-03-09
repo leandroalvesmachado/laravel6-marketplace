@@ -38,6 +38,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function store()
+    {
+        return $this->hasOne('App\Store');
+    }
+
     // 1:1 - Um pra Um (Usuario e Loja)
     // 1:N - Um pra Muitos (Loja e Produtos)
     // N:N - Muitos pra Muitos (Produtos e Categorias)
