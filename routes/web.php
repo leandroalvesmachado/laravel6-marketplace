@@ -103,12 +103,16 @@ Route::get('/admin/stores', 'Admin\StoreController@index');
 Route::get('/admin/stores/create', 'Admin\StoreController@create');
 Route::post('/admin/stores/store', 'Admin\StoreController@store');
 
-Route::prefix('admin')->namespace('Admin')->group(function() {
-    // utilizar o namespace, torna-se desnecessario o uso de Admin\StoreController@store
-    Route::prefix('stores')->group(function() {
-        Route::get('/', 'StoreController@index');
-        Route::get('/create', 'StoreController@create');
-        Route::post('/store', 'StoreController@store');
+// utilizar o namespace, torna-se desnecessario o uso de Admin\StoreController@store
+// utilizando o name, podemos simplificar o name da rota, admin.stores.index = index
+Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function() {
+    Route::prefix('stores')->name('stores.')->group(function() {
+        Route::get('/', 'StoreController@index')->name('index');
+        Route::get('/create', 'StoreController@create')->name('create');
+        Route::post('/store', 'StoreController@store')->name('store');
+        Route::get('/{store}/edit', 'StoreController@edit')->name('edit');
+        Route::post('/update/{store}', 'StoreController@update')->name('update');
+        Route::get('/destroy/{store}', 'StoreController@destroy')->name('destroy');
     });
 });
 
