@@ -17,7 +17,7 @@ class Product extends Model
         'name', 'description', 'body', 'price', 'slug'
     ];
 
-    public function products()
+    public function store()
     {
         return $this->belongsTo('App\Store');
     }

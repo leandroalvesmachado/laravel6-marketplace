@@ -5,7 +5,7 @@
 <h1>Criar Produto</h1>
 
 <form action="{{ route('admin.products.store') }}" method="post">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    @csrf
     <div class="form-group">
         <label>Nome Produto</label>
         <input type="text" name="name" id="" class="form-control">
@@ -33,7 +33,7 @@
 
     <div class="form-group">
         <label>Lojas</label>
-        <select name="user" id="" class="form-control">
+        <select name="store" id="" class="form-control">
             @foreach ($stores as $store)
             <option value="{{ $store->id }}">{{ $store->name }}</option>
             @endforeach

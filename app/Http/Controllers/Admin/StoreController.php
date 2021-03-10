@@ -5,11 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Store;
+
 class StoreController extends Controller
 {
+    private $store;
+
+    public function __construct(Store $store)
+    {
+        $this->store = $store;
+    }
+
     public function index()
     {
-        $stores = \App\Store::paginate(10);
+        $stores = $this->store->paginate(10);
 
         return view('admin.stores.index', compact('stores'));
     }
