@@ -103,21 +103,25 @@ Route::get('/admin/stores', 'Admin\StoreController@index');
 Route::get('/admin/stores/create', 'Admin\StoreController@create');
 Route::post('/admin/stores/store', 'Admin\StoreController@store');
 
-// utilizar o namespace, torna-se desnecessario o uso de Admin\StoreController@store
-// utilizando o name, podemos simplificar o name da rota, admin.stores.index = index
-Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function() {
-    // Route::prefix('stores')->name('stores.')->group(function() {
-    //     Route::get('/', 'StoreController@index')->name('index');
-    //     Route::get('/create', 'StoreController@create')->name('create');
-    //     Route::post('/store', 'StoreController@store')->name('store');
-    //     Route::get('/{store}/edit', 'StoreController@edit')->name('edit');
-    //     Route::post('/update/{store}', 'StoreController@update')->name('update');
-    //     Route::get('/destroy/{store}', 'StoreController@destroy')->name('destroy');
-    // });
+// Protegendo rotas para o grupo admin com middleware auth
+Route::group(['middleware' => ['auth']], function() {
+    // utilizar o namespace, torna-se desnecessario o uso de Admin\StoreController@store
+    // utilizando o name, podemos simplificar o name da rota, admin.stores.index = index
+    Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function() {
+        // Route::prefix('stores')->name('stores.')->group(function() {
+        //     Route::get('/', 'StoreController@index')->name('index');
+        //     Route::get('/create', 'StoreController@create')->name('create');
+        //     Route::post('/store', 'StoreController@store')->name('store');
+        //     Route::get('/{store}/edit', 'StoreController@edit')->name('edit');
+        //     Route::post('/update/{store}', 'StoreController@update')->name('update');
+        //     Route::get('/destroy/{store}', 'StoreController@destroy')->name('destroy');
+        // });
 
-    Route::resource('stores', 'StoreController');
-    Route::resource('products', 'ProductController');
+        Route::resource('stores', 'StoreController');
+        Route::resource('products', 'ProductController');
+    });
 });
+
 
 
 // Rotas geradas pelo Auth::routes()
@@ -136,4 +140,7 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function() {
 // |        | POST      | register                      |                        | App\Http\Controllers\Auth\RegisterController@register                  | web,guest 
 Auth::routes();
 
+// middleware para uma rota especifica ou um grupo de rotas
+// Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/home', 'HomeController@index')->name('home');
+
