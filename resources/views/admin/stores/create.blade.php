@@ -8,23 +8,43 @@
     @csrf
     <div class="form-group">
         <label>Nome Loja</label>
-        <input type="text" name="name" id="" class="form-control">
+        <input type="text" name="name" id="" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
+        @error('name')
+        <div class="invalida-feedback">
+            <h1>{{ $message }}</h1>
+        </div>
+        @enderror
     </div>
     <div class="form-group">
         <label>Descrição</label>
-        <input type="text" name="description" id="" class="form-control">
+        <input type="text" name="description" id="" class="form-control @error('description') is-invalid @enderror" value="{{ old('description') }}">
+        @error('description')
+        <div class="invalida-feedback">
+            <h1>{{ $message }}</h1>
+        </div>
+        @enderror
     </div>
     <div class="form-group">
         <label>Telefone</label>
-        <input type="text" name="phone" id="" class="form-control">
+        <input type="text" name="phone" id="" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
+        @error('phone')
+        <div class="invalida-feedback">
+            <h1>{{ $message }}</h1>
+        </div>
+        @enderror
     </div>
     <div class="form-group">
         <label>Celular</label>
-        <input type="text" name="mobile_phone" id="" class="form-control">
+        <input type="text" name="mobile_phone" id="" class="form-control @error('mobile_phone') is-invalid @enderror" value="{{ old('mobile_phone') }}">
+        @error('mobile_phone')
+        <div class="invalida-feedback">
+            <h1>{{ $message }}</h1>
+        </div>
+        @enderror
     </div>
     <div class="form-group">
         <label>Slug</label>
-        <input type="text" name="slug" id="" class="form-control">
+        <input type="text" name="slug" id="" class="form-control" value="{{ old('slug') }}">
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-large btn-success">Criar Loja</button>

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Store;
 
+use App\Http\Requests\StoreRequest;
+
+
 class StoreController extends Controller
 {
     private $store;
@@ -30,7 +33,7 @@ class StoreController extends Controller
         return view('admin.stores.create', compact('users'));
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->all();
         // $user = \App\User::find($data['user']);
