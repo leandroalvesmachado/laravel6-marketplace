@@ -15,7 +15,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/model', function () {
     // $products = \App\Product::all(); -> select * from products
@@ -142,5 +142,5 @@ Auth::routes();
 
 // middleware para uma rota especifica ou um grupo de rotas
 // Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 

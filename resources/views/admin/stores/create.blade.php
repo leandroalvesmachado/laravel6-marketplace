@@ -27,14 +27,6 @@
         <input type="text" name="slug" id="" class="form-control">
     </div>
     <div class="form-group">
-        <label>Usuário</label>
-        <select name="user" id="" class="form-control">
-            @foreach ($users as $user)
-            <option value="{{ $user->id }}">{{ $user->name }}</option>
-            @endforeach
-        </select>
-    </div>
-    <div class="form-group">
         <button type="submit" class="btn btn-large btn-success">Criar Loja</button>
     </div>
 </form>
