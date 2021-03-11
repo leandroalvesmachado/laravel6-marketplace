@@ -10,8 +10,8 @@
         <label>Nome Loja</label>
         <input type="text" name="name" id="" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
         @error('name')
-        <div class="invalida-feedback">
-            <h1>{{ $message }}</h1>
+        <div class="invalid-feedback">
+            {{ $message }}
         </div>
         @enderror
     </div>
@@ -19,8 +19,8 @@
         <label>Descrição</label>
         <input type="text" name="description" id="" class="form-control @error('description') is-invalid @enderror" value="{{ old('description') }}">
         @error('description')
-        <div class="invalida-feedback">
-            <h1>{{ $message }}</h1>
+        <div class="invalid-feedback">
+            {{ $message }}
         </div>
         @enderror
     </div>
@@ -28,8 +28,8 @@
         <label>Telefone</label>
         <input type="text" name="phone" id="" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
         @error('phone')
-        <div class="invalida-feedback">
-            <h1>{{ $message }}</h1>
+        <div class="invalid-feedback">
+            {{ $message }}
         </div>
         @enderror
     </div>
@@ -37,8 +37,8 @@
         <label>Celular</label>
         <input type="text" name="mobile_phone" id="" class="form-control @error('mobile_phone') is-invalid @enderror" value="{{ old('mobile_phone') }}">
         @error('mobile_phone')
-        <div class="invalida-feedback">
-            <h1>{{ $message }}</h1>
+        <div class="invalid-feedback">
+            {{ $message }}
         </div>
         @enderror
     </div>
