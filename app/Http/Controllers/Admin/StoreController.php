@@ -17,13 +17,16 @@ class StoreController extends Controller
     public function __construct(Store $store)
     {
         $this->store = $store;
+
+        $this->middleware('user.has.store')->only(['create', 'store']);
     }
 
     public function index()
-    {
-        $stores = $this->store->paginate(10);
+    {   
+        // $stores = $this->store->paginate(10);
+        $store = auth()->user()->store;
 
-        return view('admin.stores.index', compact('stores'));
+        return view('admin.stores.index', compact('store'));
     }
 
     public function create()
