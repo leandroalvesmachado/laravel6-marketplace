@@ -25,7 +25,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->product->paginate(10);
+        // $products = $this->product->paginate(10);
+
+        // retornando somente os produtos do usuário logado
+        $userStore = auth()->user()->store();
+        $products = $userStore->products()->paginate(10);
 
         return view('admin.products.index', compact('products'));
     }
@@ -37,9 +41,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $stores = \App\Store::all(['id', 'name']);
+        // $stores = \App\Store::all(['id', 'name']);
+        $categories = \App\Category::all(['id', 'name']);
 
-        return view('admin.products.create', compact('stores'));
+        return view('admin.products.create', compact('categories'));
     }
 
     /**
@@ -55,7 +60,8 @@ class ProductController extends Controller
         // $store = \App\Store::find($data['store']);
         // recuperando loja do usuario pelo auth
         $store = auth()->user()->store;
-        $store->products()->create($data);
+        $product = $store->products()->create($data);
+        $product->categories()->sync($data['categories']);
 
         flash('Produto Criado com sucesso')->success();
 
@@ -83,8 +89,9 @@ class ProductController extends Controller
     {
         // findOrFail retorna a pagina 404 caso o registro não exista
         $product = $this->product->findOrFail($id);
+        $categories = \App\Category::all(['id', 'name']);
 
-        return view('admin.products.edit', compact('product'));
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -99,6 +106,9 @@ class ProductController extends Controller
         $data = $request->all();
         $product = $this->product->findOrFail($id);
         $product->update($data);
+
+        // o sync ja faz a verificação das categorias adicionadas ou retiradas
+        $product->categories()->sync($data['categories']);
 
         flash('Produto Atualizado com sucesso')->success();
 
