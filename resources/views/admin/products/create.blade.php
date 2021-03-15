@@ -4,7 +4,7 @@
 
 <h1>Criar Produto</h1>
 
-<form action="{{ route('admin.products.store') }}" method="post">
+<form action="{{ route('admin.products.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
         <label>Nome Produto</label>
@@ -53,6 +53,16 @@
             <option value="{{ $category->id }}">{{ $category->name }}</option>
             @endforeach
         </select>
+    </div>
+
+    <div class="form-group">
+        <label>Fotos do Produto</label>
+        <input type="file" name="photos[]" class="form-control @error('photos') is-invalid @enderror" multiple>
+        @error('photos')
+        <div class="invalid-feedback">
+            {{ $message }}
+        </div>
+        @enderror
     </div>
 
     <div class="form-group">

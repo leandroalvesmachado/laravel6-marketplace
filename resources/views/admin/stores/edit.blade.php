@@ -4,7 +4,7 @@
 
 <h1>Atualizar Loja</h1>
 
-<form action="{{ route('admin.stores.update', ['store' => $store->id]) }}" method="post">
+<form action="{{ route('admin.stores.update', ['store' => $store->id]) }}" method="post" enctype="multipart/form-data">
     @csrf
     @method("PUT")
     <div class="form-group">
@@ -22,6 +22,18 @@
     <div class="form-group">
         <label>Celular</label>
         <input type="text" name="mobile_phone" id="" class="form-control" value="{{ $store->mobile_phone }}">
+    </div>
+    <div class="form-group">
+        <p>
+            <img src="{{ asset('storage/'.$store->logo) }}" alt="">
+        </p>
+        <label>Logo</label>
+        <input type="file" name="logo" class="form-control @error('logo') is-invalid @enderror">
+        @error('logo')
+        <div class="invalid-feedback">
+            {{ $message }}
+        </div>
+        @enderror
     </div>
     <div class="form-group">
         <label>Slug</label>

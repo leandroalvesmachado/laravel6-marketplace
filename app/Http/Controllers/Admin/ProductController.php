@@ -9,8 +9,11 @@ use App\Product;
 
 use App\Http\Requests\ProductRequest;
 
+use App\Traits\UploadTrait;
+
 class ProductController extends Controller
 {
+    use UploadTrait;
     private $product;
 
     public function __construct(Product $product)
@@ -63,6 +66,15 @@ class ProductController extends Controller
         $product = $store->products()->create($data);
         $product->categories()->sync($data['categories']);
 
+        // verifica se no request existe um upload a ser feito
+        if ($request->hasFile('photos')) {
+            $images = $this->imageUpload($request->file('photos'), 'image');
+
+            // vinculando imagens ao produto
+            // createMany = salva um array
+            $product->photos()->createMany($images);
+        }
+
         flash('Produto Criado com sucesso')->success();
 
         return redirect()->route('admin.products.index');
@@ -110,6 +122,15 @@ class ProductController extends Controller
         // o sync ja faz a verificação das categorias adicionadas ou retiradas
         $product->categories()->sync($data['categories']);
 
+        // verifica se no request existe um upload a ser feito
+        if ($request->hasFile('photos')) {
+            $images = $this->imageUpload($request->file('photos'), 'image');
+
+            // vinculando imagens ao produto
+            // createMany = salva um array
+            $product->photos()->createMany($images);
+        }
+
         flash('Produto Atualizado com sucesso')->success();
 
         return redirect()->route('admin.products.index');
@@ -130,4 +151,21 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.index');
     }
+
+    // Agora usando o trait
+    // metodo para realizar upload temporario
+    // private function imageUpload(Request $request, $imageColumn)
+    // {
+    //     // captura arquivos do tipo uploadFile (upload de arquivos)
+    //     $images = $request->file('photos');
+    //     $uploadedImages = [];
+
+    //     foreach ($images as $image) {
+    //         // upload na pasta products e disco public
+    //         // cria um nome random para o arquivo e já salva com a extensão correta
+    //         $uploadedImages[] = [$imageColumn => $image->store('products', 'public')];
+    //     }
+
+    //     return $uploadedImages;
+    // }
 }

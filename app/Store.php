@@ -15,7 +15,7 @@ class Store extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'phone', 'mobile_phone', 'slug'
+        'name', 'description', 'phone', 'mobile_phone', 'slug', 'logo'
     ];
 
     // de forma automatica o laravel procura pela fk user_id
