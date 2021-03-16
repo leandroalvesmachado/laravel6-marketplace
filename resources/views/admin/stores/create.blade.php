@@ -54,10 +54,10 @@
         @enderror
     </div>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label>Slug</label>
         <input type="text" name="slug" id="" class="form-control" value="{{ old('slug') }}">
-    </div>
+    </div> -->
 
     <div class="form-group">
         <button type="submit" class="btn btn-large btn-success">Criar Loja</button>

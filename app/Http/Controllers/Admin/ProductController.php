@@ -31,7 +31,7 @@ class ProductController extends Controller
         // $products = $this->product->paginate(10);
 
         // retornando somente os produtos do usuário logado
-        $userStore = auth()->user()->store();
+        $userStore = auth()->user()->store;
         $products = $userStore->products()->paginate(10);
 
         return view('admin.products.index', compact('products'));
@@ -60,11 +60,14 @@ class ProductController extends Controller
     {
         $data = $request->all();
 
+        // pasando um valor padrão null, caso não venha nenhuma categoria no request
+        $categories = $request->get('categories', null);
+
         // $store = \App\Store::find($data['store']);
         // recuperando loja do usuario pelo auth
         $store = auth()->user()->store;
         $product = $store->products()->create($data);
-        $product->categories()->sync($data['categories']);
+        $product->categories()->sync($categories);
 
         // verifica se no request existe um upload a ser feito
         if ($request->hasFile('photos')) {
@@ -116,12 +119,18 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        
+        // pasando um valor padrão null, caso não venha nenhuma categoria no request
+        $categories = $request->get('categories', null);
+
         $product = $this->product->findOrFail($id);
         $product->update($data);
 
         // o sync ja faz a verificação das categorias adicionadas ou retiradas
-        $product->categories()->sync($data['categories']);
-
+        if (!is_null($categories)) {
+            $product->categories()->sync($categories);
+        }
+        
         // verifica se no request existe um upload a ser feito
         if ($request->hasFile('photos')) {
             $images = $this->imageUpload($request->file('photos'), 'image');

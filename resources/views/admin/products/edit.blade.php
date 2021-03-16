@@ -43,18 +43,18 @@
 
     <div class="form-group">
         <label>Fotos do Produto</label>
-        <input type="file" name="photos[]" class="form-control @error('photos') is-invalid @enderror" multiple>
-        @error('photos')
+        <input type="file" name="photos[]" class="form-control @error('photos.*') is-invalid @enderror" multiple>
+        @error('photos.*')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
         @enderror
     </div>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label>Slug</label>
         <input type="text" name="slug" id="" class="form-control" value="{{ $product->slug }}">
-    </div>
+    </div> -->
 
     <div class="form-group">
         <button type="submit" class="btn btn-large btn-success">Atualizar Produto</button>
