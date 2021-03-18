@@ -12,6 +12,7 @@
             margin-bottom: 40px;
         }
     </style>
+    @yield('stylesheets')
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 40px;">
@@ -47,7 +48,7 @@
             </ul>
             <div class="my-2 my-lg-0">
                 <ul class="navbar-nav mr-auto">
-                    <!--
+                    {{---
                     <li class="nav-item">
                         <a
                             class="nav-link"
@@ -64,7 +65,7 @@
                     <li class="nav-item">
                         <span class="nav-link">{{ auth()->user()->name }}</span>
                     </li>
-                    -->
+                    ---}}
                     <li class="nav-item">
                         <a href="{{ route('cart.index') }}" class="nav-link">
                             @if (session()->has('cart'))
@@ -82,5 +83,7 @@
         @include('flash::message')
         @yield('content')
     </div>
+
+    @yield('scripts')
 </body>
 </html>

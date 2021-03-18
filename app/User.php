@@ -43,6 +43,11 @@ class User extends Authenticatable
         return $this->hasOne('App\Store');
     }
 
+    public function orders()
+    {
+        return $this->hasMany('App\UserOrder');
+    }
+
     // 1:1 - Um pra Um (Usuario e Loja)
     // 1:N - Um pra Muitos (Loja e Produtos)
     // N:N - Muitos pra Muitos (Produtos e Categorias)

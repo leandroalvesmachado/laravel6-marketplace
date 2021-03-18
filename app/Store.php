@@ -45,4 +45,9 @@ class Store extends Model
     {
         return $this->hasMany('App\Product');
     }
+
+    public function orders()
+    {
+        return $this->hasMany('App\UserOrder');
+    }
 }
