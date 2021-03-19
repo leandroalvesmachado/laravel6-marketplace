@@ -4,10 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class ComposerServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register services.
      *
      * @return void
      */
@@ -17,16 +17,12 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap services.
      *
      * @return void
      */
     public function boot()
     {
-        \PagSeguro\Library::initialize();
-        \PagSeguro\Library::cmsVersion()->setName("Marketplace")->setRelease("1.0.0");
-        \PagSeguro\Library::moduleVersion()->setName("Nome")->setRelease("1.0.0");
-
         // $categories = \App\Category::all(['name', 'slug']);
 
         // compartilhando para toda a aplicação com view share
@@ -42,7 +38,10 @@ class AppServiceProvider extends ServiceProvider
         //     $view->with('categories', $categories);
         // });
 
-        // compartilhando usando classe agora
+        // compartilhando usando classe agora para todas as views do sistema
         // view()->composer('*', 'App\Http\View\Composers\CategoryComposer');
+
+        // compartilhando com view front.blade.php de layouts
+        view()->composer('layouts.front', 'App\Http\View\Composers\CategoryComposer');
     }
 }

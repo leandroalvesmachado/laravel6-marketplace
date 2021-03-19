@@ -58,8 +58,6 @@
 @section('scripts')
 
 <script src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
-<script src="{{ asset('assets/js/jquery.ajax.js') }}"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script>

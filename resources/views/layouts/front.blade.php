@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Marketplace L6</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
         .front.row {
             margin-bottom: 40px;
@@ -33,6 +34,11 @@
                 <li class="nav-item @if(request()->is('/')) active @endif">
                     <a class="nav-link" href="{{route('home')}}">Home <span class="sr-only">(current)</span></a>
                 </li>
+                @foreach ($categories as $category)
+                <li class="nav-item @if(request()->is('category/'.$category->slug)) active @endif">
+                    <a href="{{ route('category.single', ['slug' => $category->slug]) }}" class="nav-link">{{ $category->name }}</a>
+                </li>
+                @endforeach
             </ul>
             
             <ul class="navbar-nav mr-auto">
@@ -66,6 +72,11 @@
                         <span class="nav-link">{{ auth()->user()->name }}</span>
                     </li>
                     ---}}
+                    @auth
+                    <li class="nav-item @if(request()->is('my-orders*')) active @endif">
+                        <a href="{{ route('user.orders') }}" class="nav-link">Meus Pedidos</a>
+                    </li>
+                    @endauth
                     <li class="nav-item">
                         <a href="{{ route('cart.index') }}" class="nav-link">
                             @if (session()->has('cart'))
@@ -84,6 +95,9 @@
         @yield('content')
     </div>
 
+    <script src="{{ asset('assets/js/jquery.ajax.js') }}"></script>
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+    <script src="{{ asset('js/app.js') }}"></script>
     @yield('scripts')
 </body>
 </html>

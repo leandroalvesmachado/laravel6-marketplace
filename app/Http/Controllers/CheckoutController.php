@@ -35,6 +35,7 @@ class CheckoutController extends Controller
         try {
             $dataPost = $request->all();
             $cartItems = session()->get('cart');
+            $stores = array_unique(array_column($cartItems, 'store_id'));
             $user = auth()->user();
             $reference = 'XPTO';
 
@@ -49,7 +50,8 @@ class CheckoutController extends Controller
                 'store_id' => 43
             ];
 
-            $user->orders()->create($userOrder);
+            $userOrder = $user->orders()->create($userOrder);
+            $userOrder->stores()->sync($stores);
 
             // limpando sessao apos a compra
             session()->forget('cart');

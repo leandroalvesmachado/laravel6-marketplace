@@ -26,4 +26,11 @@ class UserOrder extends Model
     {
         return $this->belongsTo('App\Store');
     }
+
+    public function stores()
+    {
+        // model, tabela (caso nao seja no padrao laravel), coluna (caso nao seja no padrao laravel)
+        return $this->belongsToMany('App\Store', 'order_store', 'order_id');
+    }
+
 }

@@ -16,8 +16,8 @@
         <tbody>
             @foreach($categories as $category)
                 <tr>
-                    <td>{{$category->id}}</td>
-                    <td>{{$category->name}}</td>
+                    <td>{{ $category->id }}</td>
+                    <td>{{ $category->name }}</td>
                     <td width="15%">
                         <div class="btn-group">
                             <a href="{{route('admin.categories.edit', ['category' => $category->id])}}" class="btn btn-sm btn-primary">EDITAR</a>

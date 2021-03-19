@@ -21,6 +21,10 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('product/{slug}', 'HomeController@single')->name('product.single');
 
+Route::get('/category/{slug}', 'CategoryController@index')->name('category.single');
+
+Route::get('/store/{slug}', 'StoreController@index')->name('store.single');
+
 Route::prefix('cart')->name('cart.')->group(function() {
     Route::get('/', 'CartController@index')->name('index');
     Route::post('add', 'CartController@add')->name('add');
@@ -122,6 +126,8 @@ Route::post('/admin/stores/store', 'Admin\StoreController@store');
 
 // Protegendo rotas para o grupo admin com middleware auth
 Route::group(['middleware' => ['auth']], function() {
+    Route::get('my-orders', 'UserOrderController@index')->name('user.orders');
+
     // utilizar o namespace, torna-se desnecessario o uso de Admin\StoreController@store
     // utilizando o name, podemos simplificar o name da rota, admin.stores.index = index
     Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function() {
@@ -139,6 +145,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('categories', 'CategoryController');
 
         Route::post('photos/remove', 'ProductPhotoController@removePhoto')->name('photo.remove');
+        Route::get('orders/my', 'OrderController@index')->name('orders.my');
     });
 });
 

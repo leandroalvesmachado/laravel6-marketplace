@@ -2,8 +2,12 @@
 
 @section('content')
 
-<div class="row">
-    @foreach ($products as $key => $product)
+<div class="row front">
+    <div class="col-12">
+        <h2>{{ $category->name }}</h2>
+        <hr>
+    </div>
+    @forelse ($category->products as $key => $product)
     <div class="col-md-4">
         <div class="card">
             @if ($product->photos->count())
@@ -24,26 +28,11 @@
         </div>
     </div>
     @if (($key + 1 )% 3 == 0) </div><div class="row"> @endif
-    @endforeach
-</div>
-
-<div class="row">
+    @empty
     <div class="col-12">
-        <h2>Lojas Destaque</h2>
-        <hr>
+        <h3 class="alert alert-warning">Nenhum produto encontrado para esta categoria.</h3>
     </div>
-    @foreach ($stores as $store)
-    <div class="col-4">
-        @if ($store->logo)
-        <img src="{{ asset('storage/'.$store->logo) }}" alt="{{ $store->name }}" class="img-fluid">
-        @else
-        <img src="{{ asset('assets/img/600X300.png') }}" alt="" class="img-fluid">
-        @endif
-        <h3>{{ $store->name }}</h3>
-        <p>{{ $store->description }}</p>
-        <a href="{{ route('store.single', ['slug' => $store->slug]) }}" class="btn btn-sm btn-success">Ver loja</a>
-    </div>
-    @endforeach
+    @endforelse
 </div>
 
 @endsection

@@ -48,6 +48,6 @@ class Store extends Model
 
     public function orders()
     {
-        return $this->hasMany('App\UserOrder');
+        return $this->belongsToMany('App\UserOrder', 'order_store', 'store_id', 'order_id');
     }
 }
