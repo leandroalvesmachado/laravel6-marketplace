@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Payment\PagSeguro\CreditCard;
 
+use App\Store;
+
 class CheckoutController extends Controller
 {
     public function index()
@@ -52,6 +54,9 @@ class CheckoutController extends Controller
 
             $userOrder = $user->orders()->create($userOrder);
             $userOrder->stores()->sync($stores);
+
+            // notificando loja de novo pedido
+            $store = (new Store())->notifyStoreOwners($stores);
 
             // limpando sessao apos a compra
             session()->forget('cart');

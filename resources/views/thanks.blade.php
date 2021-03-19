@@ -7,7 +7,7 @@
 </h2>
 
 <h3>
-    Seu pedido foi processado, código do pedido: {{ request->get('order') }}
+    Seu pedido foi processado, código do pedido: {{--- request->get('order') ---}}
 </h3>
 
 @endsection

@@ -146,6 +146,9 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::post('photos/remove', 'ProductPhotoController@removePhoto')->name('photo.remove');
         Route::get('orders/my', 'OrderController@index')->name('orders.my');
+        Route::get('notifications', 'NotificationController@notifications')->name('notifications.index');
+        Route::get('notifications/read-all', 'NotificationController@readAll')->name('notifications.read.all');
+        Route::get('notifications/read/{notification}', 'NotificationController@read')->name('notifications.read');
     });
 });
 
@@ -170,4 +173,19 @@ Auth::routes();
 // middleware para uma rota especifica ou um grupo de rotas
 // Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 // Route::get('/home', 'HomeController@index')->name('home');
+
+// testando notificacao
+Route::get('not', function() {
+    // $user = \App\User::find(41);
+    // $user->notify(new \App\Notifications\StoreReceiveNewOrder());
+
+    // return $user->notifications;
+
+    // notificacoes nao lidas pelo usuario
+    // return $user->unreadNotifications;
+
+    // notificacoes lidas pelo usuario
+    // return $user->readNotifications;
+});
+
 
