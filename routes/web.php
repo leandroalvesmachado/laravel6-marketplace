@@ -36,6 +36,7 @@ Route::prefix('checkout')->name('checkout.')->group(function() {
     Route::get('/', 'CheckoutController@index')->name('index');
     Route::post('/proccess', 'CheckoutController@proccess')->name('proccess');
     Route::get('/thanks', 'CheckoutController@thanks')->name('thanks');
+    Route::get('/notification', 'CheckoutController@notification')->name('notification');
 });
 
 Route::get('/model', function () {
@@ -124,9 +125,11 @@ Route::get('/admin/stores', 'Admin\StoreController@index');
 Route::get('/admin/stores/create', 'Admin\StoreController@create');
 Route::post('/admin/stores/store', 'Admin\StoreController@store');
 
+Route::get('my-orders', 'UserOrderController@index')->name('user.orders')->middleware('auth');
+
 // Protegendo rotas para o grupo admin com middleware auth
-Route::group(['middleware' => ['auth']], function() {
-    Route::get('my-orders', 'UserOrderController@index')->name('user.orders');
+Route::group(['middleware' => ['auth', 'access.control.store.admin']], function() {
+    // Route::get('my-orders', 'UserOrderController@index')->name('user.orders');
 
     // utilizar o namespace, torna-se desnecessario o uso de Admin\StoreController@store
     // utilizando o name, podemos simplificar o name da rota, admin.stores.index = index

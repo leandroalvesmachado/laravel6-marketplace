@@ -33,10 +33,8 @@ class CartController extends Controller
 
         $product = $this->product->whereSlug($productData['slug']);
 
-        if (!$product->count() || $productData['amount'] == 0) {
-            return redirect()->route('single', [
-                'slug' => $productData['slug']
-            ]);
+        if (!$product->count() || $productData['amount'] <=  0) {
+            return redirect()->route('home');
         }
 
         $product = array_merge($productData, $product->first(['name', 'price', 'store_id'])->toArray());

@@ -57,8 +57,9 @@
         @include('flash::message')
         @yield('content')
     </div>
-    <script src="{{ asset('assets/js/jquery.ajax.js') }}"></script>
+    <!-- <script src="{{ asset('assets/js/jquery.ajax.js') }}"></script> -->
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

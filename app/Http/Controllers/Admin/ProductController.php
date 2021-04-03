@@ -31,8 +31,14 @@ class ProductController extends Controller
         // $products = $this->product->paginate(10);
 
         // retornando somente os produtos do usuário logado
-        $userStore = auth()->user()->store;
-        $products = $userStore->products()->paginate(10);
+        $user = auth()->user();
+
+        if (!$user->store()->exists()) {
+            flash('É necessário criar uma loja para cadastrar os produtos')->warning();
+            return redirect()->route('admin.stores.index');
+        }
+        
+        $products = $user->store->products()->paginate(10);
 
         return view('admin.products.index', compact('products'));
     }
@@ -62,6 +68,8 @@ class ProductController extends Controller
 
         // pasando um valor padrão null, caso não venha nenhuma categoria no request
         $categories = $request->get('categories', null);
+
+        $data['price'] = formatPriceToDatabase($data['price']);
 
         // $store = \App\Store::find($data['store']);
         // recuperando loja do usuario pelo auth
